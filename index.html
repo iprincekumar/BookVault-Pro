@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookVault Pro - Professional Book Review Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Professional book review and management platform">
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="BookVault Pro">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0idXJsKCNncmFkaWVudDBfbGluZWFyXzFfMSkiLz4KPHA+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50MF9saW5lYXJfMV8xIiB4MT0iMCIgeTE9IjAiIHgyPSIzMiIgeTI9IjMyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiM2MzY2ZjEiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOGI1Y2Y2Ii8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+Cg==">
+</head>
+<body>
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading BookVault Pro...</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">📚</div>
+                    <div class="title-section">
+                        <h1>BookVault Pro</h1>
+                        <p>Professional Book Review Platform</p>
+                    </div>
+                </div>
+                <div class="header-controls">
+                    <button id="theme-toggle" class="theme-toggle" title="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                    <button id="export-btn" class="btn-secondary">Export Data</button>
+                    <label for="import-file" class="btn-secondary import-btn">
+                        Import Data
+                        <input type="file" id="import-file" accept=".json" style="display: none;">
+                    </label>
+                </div>
+            </div>
+
+            <div class="stats-overview" id="stats-overview">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-books">0</div>
+                    <div class="stat-label">Total Books</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="avg-rating">0.0</div>
+                    <div class="stat-label">Avg Rating</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="reading-goal">0%</div>
+                    <div class="stat-label">Reading Goal</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="favorite-genre">-</div>
+                    <div class="stat-label">Top Genre</div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="add-book-section">
+                <div class="section-header">
+                    <h2>📖 Add a New Book</h2>
+                    <div class="section-subtitle">Build your personal library</div>
+                </div>
+
+                <form id="book-form" class="book-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="title">Book Title *</label>
+                            <input type="text" id="title" name="title" required placeholder="Enter book title...">
+                            <div class="form-validation" id="title-validation"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="author">Author *</label>
+                            <input type="text" id="author" name="author" required placeholder="Enter author name...">
+                            <div class="form-validation" id="author-validation"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="genre">Genre *</label>
+                            <select id="genre" name="genre" required>
+                                <option value="">Select a genre</option>
+                                <option value="fiction">📚 Fiction</option>
+                                <option value="non-fiction">📖 Non-Fiction</option>
+                                <option value="mystery">🔍 Mystery</option>
+                                <option value="romance">💕 Romance</option>
+                                <option value="sci-fi">🚀 Science Fiction</option>
+                                <option value="fantasy">🧙 Fantasy</option>
+                                <option value="biography">👤 Biography</option>
+                                <option value="history">🏛️ History</option>
+                                <option value="thriller">⚡ Thriller</option>
+                                <option value="horror">👻 Horror</option>
+                                <option value="self-help">💪 Self Help</option>
+                                <option value="business">💼 Business</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="status">Reading Status</label>
+                            <select id="status" name="status">
+                                <option value="completed">✅ Completed</option>
+                                <option value="reading">📖 Currently Reading</option>
+                                <option value="want-to-read">📚 Want to Read</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cover-url">Book Cover URL (Optional)</label>
+                            <input type="url" id="cover-url" name="cover-url" placeholder="https://example.com/book-cover.jpg">
+                            <div class="cover-preview" id="cover-preview"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pages">Total Pages</label>
+                            <input type="number" id="pages" name="pages" min="1" placeholder="e.g., 350">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Rating *</label>
+                        <div class="star-rating" id="star-rating">
+                            <span class="star" data-rating="1">★</span>
+                            <span class="star" data-rating="2">★</span>
+                            <span class="star" data-rating="3">★</span>
+                            <span class="star" data-rating="4">★</span>
+                            <span class="star" data-rating="5">★</span>
+                        </div>
+                        <input type="hidden" id="rating" name="rating" required>
+                        <div class="rating-text">Click stars to rate</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review">Your Review</label>
+                        <textarea id="review" name="review" rows="4" placeholder="Share your thoughts about this book..."></textarea>
+                        <div class="character-count">
+                            <span id="review-count">0</span>/500 characters
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <span class="btn-text">Add to Library</span>
+                        <span class="btn-loading">Adding...</span>
+                    </button>
+                </form>
+            </section>
+
+            <section class="search-section">
+                <div class="section-header">
+                    <h2>🔍 Explore Your Library</h2>
+                    <div class="section-subtitle">Find and organize your books</div>
+                </div>
+
+                <div class="search-controls">
+                    <div class="search-input-group">
+                        <input type="text" id="search-input" placeholder="Search by title, author, or review...">
+                        <div class="search-suggestions" id="search-suggestions"></div>
+                    </div>
+
+                    <div class="filter-group">
+                        <select id="filter-genre">
+                            <option value="">All Genres</option>
+                            <option value="fiction">📚 Fiction</option>
+                            <option value="non-fiction">📖 Non-Fiction</option>
+                            <option value="mystery">🔍 Mystery</option>
+                            <option value="romance">💕 Romance</option>
+                            <option value="sci-fi">🚀 Science Fiction</option>
+                            <option value="fantasy">🧙 Fantasy</option>
+                            <option value="biography">👤 Biography</option>
+                            <option value="history">🏛️ History</option>
+                            <option value="thriller">⚡ Thriller</option>
+                            <option value="horror">👻 Horror</option>
+                            <option value="self-help">💪 Self Help</option>
+                            <option value="business">💼 Business</option>
+                        </select>
+
+                        <select id="filter-rating">
+                            <option value="">All Ratings</option>
+                            <option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
+                            <option value="4">⭐⭐⭐⭐ 4+ Stars</option>
+                            <option value="3">⭐⭐⭐ 3+ Stars</option>
+                            <option value="2">⭐⭐ 2+ Stars</option>
+                            <option value="1">⭐ 1+ Stars</option>
+                        </select>
+
+                        <select id="filter-status">
+                            <option value="">All Status</option>
+                            <option value="completed">✅ Completed</option>
+                            <option value="reading">📖 Currently Reading</option>
+                            <option value="want-to-read">📚 Want to Read</option>
+                        </select>
+
+                        <select id="sort-by">
+                            <option value="newest">📅 Newest First</option>
+                            <option value="oldest">📅 Oldest First</option>
+                            <option value="title">🔤 Title A-Z</option>
+                            <option value="author">👤 Author A-Z</option>
+                            <option value="rating-high">⭐ Highest Rated</option>
+                            <option value="rating-low">⭐ Lowest Rated</option>
+                        </select>
+                    </div>
+
+                    <div class="view-controls">
+                        <button id="grid-view" class="view-btn active" title="Grid View">⚏</button>
+                        <button id="list-view" class="view-btn" title="List View">☰</button>
+                        <button id="clear-filters" class="btn-secondary">Clear Filters</button>
+                    </div>
+                </div>
+
+                <div class="results-info">
+                    <span id="results-count">0 books found</span>
+                    <div class="quick-stats">
+                        <span id="reading-count">0 reading</span> •
+                        <span id="completed-count">0 completed</span> •
+                        <span id="want-to-read-count">0 want to read</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="books-section">
+                <div class="section-header">
+                    <h2>📚 My Library</h2>
+                    <div class="library-controls">
+                        <button id="reading-goal-btn" class="btn-secondary">Set Reading Goal</button>
+                        <div class="pagination-info">
+                            <span id="pagination-text">Showing all books</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="books-container" class="books-grid">
+                    <div class="no-books">
+                        <div class="no-books-icon">📚</div>
+                        <h3>No books in your library yet</h3>
+                        <p>Add your first book to get started on your reading journey!</p>
+                    </div>
+                </div>
+
+                <div class="pagination" id="pagination">
+                    <button id="prev-page" class="pagination-btn" disabled>← Previous</button>
+                    <div class="pagination-numbers" id="pagination-numbers"></div>
+                    <button id="next-page" class="pagination-btn" disabled>Next →</button>
+                </div>
+            </section>
+
+            <!-- Reading Goal Modal -->
+            <div id="reading-goal-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>🎯 Set Your Reading Goal</h3>
+                        <button class="modal-close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>How many books would you like to read this year?</p>
+                        <input type="number" id="goal-input" min="1" max="365" placeholder="e.g., 24">
+                        <div class="goal-suggestions">
+                            <button class="goal-preset" data-goal="12">12 books (1/month)</button>
+                            <button class="goal-preset" data-goal="24">24 books (2/month)</button>
+                            <button class="goal-preset" data-goal="52">52 books (1/week)</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="save-goal" class="btn-primary">Save Goal</button>
+                        <button id="cancel-goal" class="btn-secondary">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Load database-enabled version if available, fallback to local -->
+    <script src="script.js"></script>
+    <script src="js/database-api.js"></script>
+    <script>
+        // Use database version if available, otherwise use local version
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof BookVaultProDB !== 'undefined') {
+                new BookVaultProDB();
+            } else {
+                new BookVaultPro();
+            }
+        });
+    </script>
+</body>
+</html>
