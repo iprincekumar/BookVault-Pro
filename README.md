@@ -16,7 +16,7 @@ A professional book review and library management platform built with vanilla Ja
 
 ## 🚀 Live Demo
 
-Visit the live application: [BookVault Pro](https://your-netlify-url.netlify.app)
+Visit the live application: [BookVault Pro](https://bookvaultpro.netlify.app/)
 
 ## 📱 Installation
 
